@@ -8,12 +8,13 @@ namespace GraphDataStructureInC_Sharp
 {    
     class BasicGraph
     {
-        HttpContext _httpContext => new HttpContextAccessor().HttpContext;
-        #region This class represents a Directed Graph Implementation using LinkedList 
-        //private variables
+        HttpContext _httpContext 
+            => new HttpContextAccessor().HttpContext;
+        #region private variables
+        //This class represents a Directed Graph Implementation using LinkedList private variables
         private int totalVertices; // No. of vertices
         private LinkedList<int>[] linkedListArray;
-
+        #endregion
         // Constructor
         public BasicGraph(int n)
         {
@@ -22,13 +23,11 @@ namespace GraphDataStructureInC_Sharp
             for (int i = 0; i < n; i++)
                 linkedListArray[i] = new LinkedList<int>();
         }
-
-        // Function to add an edge into the graph using adjacent vertex
+        // Function to add an edge using adjacent vertex
         public void addEdge(int vertex, int adVertex)
         {
             linkedListArray[vertex].AddLast(adVertex);
         }
-
         #region bi-directional graph
         /// The method takes two nodes for which to add edge in bi-directional graph.        
         //public void AddEdge(int u, int v, bool blnBiDir = true)
@@ -61,7 +60,7 @@ namespace GraphDataStructureInC_Sharp
 
         // prints BFS traversal from a given source s
         #endregion
-
+        // Function to PrintAdjanceyList
         public void PrintAdjanceyList()
         {
             _httpContext.Response.WriteAsync("================================================\n");
@@ -82,7 +81,7 @@ namespace GraphDataStructureInC_Sharp
             }
             _httpContext.Response.WriteAsync(nodeString.ToString());
         }
-
+        // Function to CreateAdjanceyMatrix
         public void CreateAdjanceyMatrix(BasicGraph graph)
         {
             
@@ -108,7 +107,7 @@ namespace GraphDataStructureInC_Sharp
 
             PrintAdjanceyMatrix(adjanceyMatrix, graph.totalVertices);
         }
-
+        // Function to PrintAdjanceyMatrix
         public void PrintAdjanceyMatrix(int?[,] adjanceyMatrix, int Count)
         {
             _httpContext.Response.WriteAsync("================================================\n");
@@ -144,10 +143,8 @@ namespace GraphDataStructureInC_Sharp
                 }
                 _httpContext.Response.WriteAsync(" ]\r\n");
             }
-            _httpContext.Response.WriteAsync("\r\n");
             _httpContext.Response.WriteAsync("================================================\n");
         }
-
         #region Search & Print In Graph
         //Function to check if there is any path exists between two nodes
         bool isReachable(int source, int destination)
@@ -203,9 +200,10 @@ namespace GraphDataStructureInC_Sharp
         {
             _httpContext.Response.WriteAsync("Try Path Search in the Graph\n");
             _httpContext.Response.WriteAsync("================================================\n");
-            _httpContext.Response.WriteAsync("Type Source Node from list:"+source+"\n");
+            _httpContext.Response.WriteAsync("Passing source: "+source+" and destination: "+destination+"\n");
+            _httpContext.Response.WriteAsync("Source Node from list:"+source+"\n");
             //int source = Convert.ToInt32(source);// arbitrary source 
-            _httpContext.Response.WriteAsync("Type Destination Node from list:"+destination+"\n");
+            _httpContext.Response.WriteAsync("Destination Node from list:"+destination+"\n");
             //int destination = Convert.ToInt32(destination);
 
             if (graph.isReachable(source, destination))
@@ -266,10 +264,7 @@ namespace GraphDataStructureInC_Sharp
             // Mark the current node 
             isVisited[source] = false;
         }
-        #endregion
-
-        #endregion
+        #endregion        
     }
-
 }
 

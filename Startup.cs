@@ -43,8 +43,8 @@ namespace GraphDataStructureInC_Sharp
                     graph.addEdge(4, 6);
                     graph.addEdge(6, 7);
                     graph.PrintAdjanceyList();
-                    graph.CreateAdjanceyMatrix(graph);
-                    //graph.PathsSearch(graph, 0, 2);
+                    graph.CreateAdjanceyMatrix(graph);                    
+                    graph.PathsSearch(graph, 0, 2);
                     #endregion
                     await context.Response.WriteAsync("");
                 });
