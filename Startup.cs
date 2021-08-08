@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,19 +28,40 @@ namespace GraphDataStructureInC_Sharp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>
-                {                    
+                {
                     #region Graph Type 1
-                    BasicGraph graph = new BasicGraph(8);
-                    graph.addEdge(0, 2);
-                    graph.addEdge(1, 3);
-                    graph.addEdge(1, 4);
-                    graph.addEdge(2, 5);
-                    graph.addEdge(3, 5);
-                    graph.addEdge(4, 6);
-                    graph.addEdge(6, 7);
-                    graph.PrintAdjanceyList();
-                    graph.CreateAdjanceyMatrix(graph);                    
-                    graph.PathsSearch(graph, 0, 2);
+                    //BasicGraph graph = new BasicGraph(8);
+                    //graph.addEdge(0, 2);
+                    //graph.addEdge(1, 3);
+                    //graph.addEdge(1, 4);
+                    //graph.addEdge(2, 5);
+                    //graph.addEdge(3, 5);
+                    //graph.addEdge(4, 6);
+                    //graph.addEdge(6, 7);
+                    //graph.PrintAdjanceyList();
+                    //graph.CreateAdjanceyMatrix(graph);
+                    #endregion
+
+                    #region Graph Type 2
+                    StandardGraph myGraph = new StandardGraph();
+                    myGraph.AddNode(1);
+                    myGraph.AddNode(2);
+                    myGraph.AddNode(3);
+                    myGraph.AddNode(4);
+                    myGraph.AddNode(5);
+                    myGraph.AddNode(6);
+                    myGraph.AddNode(7);
+                    myGraph.AddNode(8);
+
+                    myGraph.AddEdge(1, 3);
+                    myGraph.AddEdge(3, 6);
+                    myGraph.AddEdge(2, 4);
+                    myGraph.AddEdge(4, 6);
+                    myGraph.AddEdge(2, 5);
+                    myGraph.AddEdge(5, 7);
+                    myGraph.AddEdge(7, 8);
+
+                    context.Response.WriteAsync(myGraph.ToString());
                     #endregion
                     await context.Response.WriteAsync("");
                 });
