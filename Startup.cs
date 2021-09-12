@@ -26,73 +26,74 @@ namespace GraphDataStructureInC_Sharp
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    #region Type 1 : Graph Using LinkedList
-                    //BasicGraph graph = new BasicGraph(8);
-                    //graph.addEdge(0, 2);
-                    //graph.addEdge(1, 3);
-                    //graph.addEdge(1, 4);
-                    //graph.addEdge(2, 5);
-                    //graph.addEdge(3, 5);
-                    //graph.addEdge(4, 6);
-                    //graph.addEdge(6, 7);
-                    //graph.PrintAdjanceyList();
-                    //graph.CreateAdjanceyMatrix(graph);
-                    #endregion
+            _ = app.UseEndpoints(endpoints =>
+              {
+                  endpoints.MapGet("/", async context =>
+                  {
+                      #region Type 1 : Graph Using LinkedList
+                      //BasicGraph graph = new BasicGraph(8);
+                      //graph.addEdge(0, 2);
+                      //graph.addEdge(1, 3);
+                      //graph.addEdge(1, 4);
+                      //graph.addEdge(2, 5);
+                      //graph.addEdge(3, 5);
+                      //graph.addEdge(4, 6);
+                      //graph.addEdge(6, 7);
+                      //graph.PrintAdjanceyList();
+                      //graph.CreateAdjanceyMatrix(graph);
+                      #endregion
 
-                    #region Type 2 : Non-Zero Index Based Graph using Custom class
-                    //StandardGraph myGraph = new StandardGraph();
-                    //myGraph.AddNode(1);
-                    //myGraph.AddNode(2);
-                    //myGraph.AddNode(3);
-                    //myGraph.AddNode(4);
-                    //myGraph.AddNode(5);
-                    //myGraph.AddNode(6);
-                    //myGraph.AddNode(7);
-                    //myGraph.AddNode(8);
+                      #region Type 2 : Non-Zero Index Based Graph using Custom class
+                      //StandardGraph myGraph = new StandardGraph();
+                      //myGraph.AddNode(1);
+                      //myGraph.AddNode(2);
+                      //myGraph.AddNode(3);
+                      //myGraph.AddNode(4);
+                      //myGraph.AddNode(5);
+                      //myGraph.AddNode(6);
+                      //myGraph.AddNode(7);
+                      //myGraph.AddNode(8);
 
-                    //myGraph.AddEdge(1, 3);
-                    //myGraph.AddEdge(3, 6);
-                    //myGraph.AddEdge(2, 4);
-                    //myGraph.AddEdge(4, 6);
-                    //myGraph.AddEdge(2, 5);
-                    //myGraph.AddEdge(5, 7);
-                    //myGraph.AddEdge(7, 8);
+                      //myGraph.AddEdge(1, 3);
+                      //myGraph.AddEdge(3, 6);
+                      //myGraph.AddEdge(2, 4);
+                      //myGraph.AddEdge(4, 6);
+                      //myGraph.AddEdge(2, 5);
+                      //myGraph.AddEdge(5, 7);
+                      //myGraph.AddEdge(7, 8);
 
-                    //context.Response.WriteAsync(myGraph.ToString());
-                    #endregion
+                      //context.Response.WriteAsync(myGraph.ToString());
+                      #endregion
 
-                    #region Type 3 : Generic Graph<T> using Custom class
-                    Graph<int> genericGraph = Graph<int>.BuidGraph();
-                    await context.Response.WriteAsync("=============================================\n");
-                    await context.Response.WriteAsync("Generic Bi-Directional Graph\n");
-                    await context.Response.WriteAsync("Adjacency List Implementation\n");
-                    await context.Response.WriteAsync("=============================================\n");
-                    await context.Response.WriteAsync(Graph<int>.PrintGraph(genericGraph));
-                    #region Searching in Graph
-                    //await context.Response.WriteAsync("\n\nType Source Node from list:");
-                    //int source = 7;// arbitrary source 
-                    //await context.Response.WriteAsync(source.ToString());
-                    //await context.Response.WriteAsync("\nType Destination Node from list:");
-                    //int destination = 12; // arbitrary destination 
-                    //await context.Response.WriteAsync(destination.ToString());
-                    //await context.Response.WriteAsync("\nSelect Search Type \n 0 for DFS \n 1 for BFS\n");
-                    //await context.Response.WriteAsync("0-"+SearchType.DFS.ToString());
-                    //await context.Response.WriteAsync("\nChecking the path if Reachable from Source node "
-                    //    + source + " to Destination node " + destination);
-                    //await context.Response.WriteAsync("\n"+SearchType.DFS.ToString() + " : Path from " 
-                    //    + source.ToString() + " to " + destination.ToString() + " -> ");
-                    //await context.Response.WriteAsync("\n--------------------------------");
-                    //await context.Response.WriteAsync(genericGraph.Search(source, destination, genericGraph, SearchType.DFS));
-                    #endregion
-                    #endregion
+                      #region Type 3 : Generic Graph<T> using Custom class
+                      Graph<int> genericGraph = Graph<int>.BuidGraph();
+                      await context.Response.WriteAsync("=============================================\n");
+                      await context.Response.WriteAsync("Generic Bi-Directional Graph\n");
+                      await context.Response.WriteAsync("Adjacency List Implementation\n");
+                      await context.Response.WriteAsync("=============================================\n");
+                      await context.Response.WriteAsync(Graph<int>.PrintGraph(genericGraph));
+                      #region Searching in Graph
+                      await context.Response.WriteAsync("\n\nType Source Node from list:");
+                      int source = 4;// arbitrary source 
+                      await context.Response.WriteAsync(source.ToString());
+                      await context.Response.WriteAsync("\nType Destination Node from list:");
+                      int destination = 1; // arbitrary destination 
+                      await context.Response.WriteAsync(destination.ToString());
+                      await context.Response.WriteAsync("\nSelect Search Type \n 0 for DFS \n 1 for BFS\n");
+                      SearchType searchType = SearchType.DFS;
+                      await context.Response.WriteAsync((int)searchType + "-" + searchType.ToString());
+                      await context.Response.WriteAsync("\nChecking the path if Reachable from Source node "
+                          + source + " to Destination node " + destination);
+                      await context.Response.WriteAsync("\n" + searchType.ToString() + " : Path from "
+                          + source.ToString() + " to " + destination.ToString() + " -> ");
+                      await context.Response.WriteAsync("\n--------------------------------");
+                      await context.Response.WriteAsync(genericGraph.Search(source, destination, genericGraph, searchType));
+                      #endregion
+                      #endregion
 
-                    await context.Response.WriteAsync("");
-                });
-            });
+                      await context.Response.WriteAsync("");
+                  });
+              });
         }
     }
 }
