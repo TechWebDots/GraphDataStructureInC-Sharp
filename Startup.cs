@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 
 namespace GraphDataStructureInC_Sharp
 {
@@ -66,31 +67,44 @@ namespace GraphDataStructureInC_Sharp
                       #endregion
 
                       #region Type 3 : Generic Graph<T> using Custom class
-                      Graph<int> genericGraph = Graph<int>.BuidGraph();
-                      await context.Response.WriteAsync("=============================================\n");
-                      await context.Response.WriteAsync("Generic Bi-Directional Graph\n");
-                      await context.Response.WriteAsync("Adjacency List Implementation\n");
-                      await context.Response.WriteAsync("=============================================\n");
-                      await context.Response.WriteAsync(Graph<int>.PrintGraph(genericGraph));
-                      #region Searching in Graph
-                      await context.Response.WriteAsync("\n\nType Source Node from list:");
-                      int source = 4;// arbitrary source 
-                      await context.Response.WriteAsync(source.ToString());
-                      await context.Response.WriteAsync("\nType Destination Node from list:");
-                      int destination = 1; // arbitrary destination 
-                      await context.Response.WriteAsync(destination.ToString());
-                      await context.Response.WriteAsync("\nSelect Search Type \n 0 for DFS \n 1 for BFS\n");
-                      SearchType searchType = SearchType.DFS;
-                      await context.Response.WriteAsync((int)searchType + "-" + searchType.ToString());
-                      await context.Response.WriteAsync("\nChecking the path if Reachable from Source node "
-                          + source + " to Destination node " + destination);
-                      await context.Response.WriteAsync("\n" + searchType.ToString() + " : Path from "
-                          + source.ToString() + " to " + destination.ToString() + " -> ");
-                      await context.Response.WriteAsync("\n--------------------------------");
-                      await context.Response.WriteAsync(genericGraph.Search(source, destination, genericGraph, searchType));
-                      #endregion
+                      //Graph<int> genericGraph = Graph<int>.BuidGraph();
+                      //await context.Response.WriteAsync("=============================================\n");
+                      //await context.Response.WriteAsync("Generic Bi-Directional Graph\n");
+                      //await context.Response.WriteAsync("Adjacency List Implementation\n");
+                      //await context.Response.WriteAsync("=============================================\n");
+                      //await context.Response.WriteAsync(Graph<int>.PrintGraph(genericGraph));
+                      //#region Searching in Graph
+                      //await context.Response.WriteAsync("\n\nType Source Node from list:");
+                      //int source = 4;// arbitrary source 
+                      //await context.Response.WriteAsync(source.ToString());
+                      //await context.Response.WriteAsync("\nType Destination Node from list:");
+                      //int destination = 1; // arbitrary destination 
+                      //await context.Response.WriteAsync(destination.ToString());
+                      //await context.Response.WriteAsync("\nSelect Search Type \n 0 for DFS \n 1 for BFS\n");
+                      //SearchType searchType = SearchType.DFS;
+                      //await context.Response.WriteAsync((int)searchType + "-" + searchType.ToString());
+                      //await context.Response.WriteAsync("\nChecking the path if Reachable from Source node "
+                      //    + source + " to Destination node " + destination);
+                      //await context.Response.WriteAsync("\n" + searchType.ToString() + " : Path from "
+                      //    + source.ToString() + " to " + destination.ToString() + " -> ");
+                      //await context.Response.WriteAsync("\n--------------------------------");
+                      //await context.Response.WriteAsync(genericGraph.Search(source, destination, genericGraph, searchType));
+                      //#endregion
                       #endregion
 
+                      #region Weighted Generic Graph<T> : Minimum Spanning Tree : Kruskal's Greedy Algorithm
+                      WeightedGraph<int> weightedGenericGraph = WeightedGraph<int>.BuidGraph();
+                      await context.Response.WriteAsync("================================================\n");
+                      await context.Response.WriteAsync("Generic Weighted Bi-Directional Graph\n");
+                      await context.Response.WriteAsync("Adjacency List Implementation\n");
+                      await context.Response.WriteAsync("================================================\n");
+                      await context.Response.WriteAsync(WeightedGraph<int>.PrintGraph(weightedGenericGraph));
+                      await context.Response.WriteAsync("\n================================================\n");
+                      await context.Response.WriteAsync("Minimum Spanning Tree Kruskal's Greedy Algorithm\n");
+                      await context.Response.WriteAsync("================================================\n");
+                      List<WeightedEdge<int>> mstKruskal = weightedGenericGraph.MinimumSpanningTreeKruskal();
+                      mstKruskal.ForEach(e => context.Response.WriteAsync(e.ToString()+"\n"));
+                      #endregion
                       await context.Response.WriteAsync("");
                   });
               });
