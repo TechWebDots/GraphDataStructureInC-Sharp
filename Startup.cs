@@ -116,8 +116,8 @@ namespace GraphDataStructureInC_Sharp
                       await context.Response.WriteAsync("\n================================================\n");
                       await context.Response.WriteAsync("Minimum Spanning Tree Prim's Algorithm\n");
                       await context.Response.WriteAsync("================================================\n");
-                      List<WeightedEdge<int>> mstKruskal = weightedGenericGraph.MinimumSpanningTreePrim();
-                      mstKruskal.ForEach(e => context.Response.WriteAsync(e.ToString() + "\n"));
+                      List<WeightedEdge<int>> mstPrim = weightedGenericGraph.MinimumSpanningTreePrim();
+                      mstPrim.ForEach(e => context.Response.WriteAsync(e.ToString() + "\n"));
                       #endregion
 
                       await context.Response.WriteAsync("");
