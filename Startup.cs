@@ -93,6 +93,20 @@ namespace GraphDataStructureInC_Sharp
                       #endregion
 
                       #region Weighted Generic Graph<T> : Minimum Spanning Tree : Kruskal's Greedy Algorithm
+                      //WeightedGraph<int> weightedGenericGraph = WeightedGraph<int>.BuidGraph();
+                      //await context.Response.WriteAsync("================================================\n");
+                      //await context.Response.WriteAsync("Generic Weighted Bi-Directional Graph\n");
+                      //await context.Response.WriteAsync("Adjacency List Implementation\n");
+                      //await context.Response.WriteAsync("================================================\n");
+                      //await context.Response.WriteAsync(WeightedGraph<int>.PrintGraph(weightedGenericGraph));
+                      //await context.Response.WriteAsync("\n================================================\n");
+                      //await context.Response.WriteAsync("Minimum Spanning Tree Kruskal's Greedy Algorithm\n");
+                      //await context.Response.WriteAsync("================================================\n");
+                      //List<WeightedEdge<int>> mstKruskal = weightedGenericGraph.MinimumSpanningTreeKruskal();
+                      //mstKruskal.ForEach(e => context.Response.WriteAsync(e.ToString()+"\n"));
+                      #endregion
+
+                      #region Weighted Generic Graph<T> : Minimum Spanning Tree : Prim's Algorithm
                       WeightedGraph<int> weightedGenericGraph = WeightedGraph<int>.BuidGraph();
                       await context.Response.WriteAsync("================================================\n");
                       await context.Response.WriteAsync("Generic Weighted Bi-Directional Graph\n");
@@ -100,11 +114,12 @@ namespace GraphDataStructureInC_Sharp
                       await context.Response.WriteAsync("================================================\n");
                       await context.Response.WriteAsync(WeightedGraph<int>.PrintGraph(weightedGenericGraph));
                       await context.Response.WriteAsync("\n================================================\n");
-                      await context.Response.WriteAsync("Minimum Spanning Tree Kruskal's Greedy Algorithm\n");
+                      await context.Response.WriteAsync("Minimum Spanning Tree Prim's Algorithm\n");
                       await context.Response.WriteAsync("================================================\n");
-                      List<WeightedEdge<int>> mstKruskal = weightedGenericGraph.MinimumSpanningTreeKruskal();
-                      mstKruskal.ForEach(e => context.Response.WriteAsync(e.ToString()+"\n"));
+                      List<WeightedEdge<int>> mstKruskal = weightedGenericGraph.MinimumSpanningTreePrim();
+                      mstKruskal.ForEach(e => context.Response.WriteAsync(e.ToString() + "\n"));
                       #endregion
+
                       await context.Response.WriteAsync("");
                   });
               });

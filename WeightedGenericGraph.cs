@@ -310,27 +310,7 @@ namespace GraphDataStructureInC_Sharp
             int i = 0;
             Nodes.ForEach(n => n.Index = i++);
         }
-        //public WeightedEdge<T> this[int from, int to]
-        //{
-        //    get
-        //    {
-        //        WeightedGraphNode<T> nodeFrom = Nodes[from];
-        //        WeightedGraphNode<T> nodeTo = Nodes[to];
-        //        int i = nodeFrom.Neighbors.IndexOf(nodeTo);
-        //        if (i >= 0)
-        //        {
-        //            WeightedEdge<T> edge = new WeightedEdge<T>()
-        //            {
-        //                From = nodeFrom,
-        //                To = nodeTo,
-        //                Weight = i < nodeFrom.Weights.Count ? nodeFrom.Weights[i] : 0
-        //            };
-        //            return edge;
-        //        }
-
-        //        return null;
-        //    }
-        //}        
+             
         private WeightedGraphNode<T> GetRoot(Subset<T>[] subsets, WeightedGraphNode<T> node)
         {
             if (subsets[node.Index].Parent != node)
@@ -388,6 +368,93 @@ namespace GraphDataStructureInC_Sharp
             }
 
             return result;
+        }
+        #endregion
+
+        #region WeightedGraph: MinimumSpanningTreePrim 
+        public WeightedEdge<T> this[int from, int to]
+        {
+            get
+            {
+                WeightedGraphNode<T> nodeFrom = Nodes[from];
+                WeightedGraphNode<T> nodeTo = Nodes[to];
+                int i = nodeFrom.Neighbors.IndexOf(nodeTo);
+                if (i >= 0)
+                {
+                    WeightedEdge<T> edge = new WeightedEdge<T>()
+                    {
+                        From = nodeFrom,
+                        To = nodeTo,
+                        Weight = i < nodeFrom.Weights.Count ? nodeFrom.Weights[i] : 0
+                    };
+                    return edge;
+                }
+
+                return null;
+            }
+        }
+
+        public List<WeightedEdge<T>> MinimumSpanningTreePrim()
+        {
+            int[] previous = new int[Nodes.Count];
+            previous[0] = -1;
+
+            int[] minWeight = new int[Nodes.Count];
+            Fill(minWeight, int.MaxValue);
+            minWeight[0] = 0;
+
+            bool[] isInMST = new bool[Nodes.Count];
+            Fill(isInMST, false);
+
+            for (int i = 0; i < Nodes.Count - 1; i++)
+            {
+                int minWeightIndex = GetMinimumWeightIndex(minWeight, isInMST);
+                isInMST[minWeightIndex] = true;
+
+                for (int j = 0; j < Nodes.Count; j++)
+                {
+                    WeightedEdge<T> edge = this[minWeightIndex, j];
+                    int weight = edge != null ? edge.Weight : -1;
+                    if (edge != null && !isInMST[j] && weight < minWeight[j])
+                    {
+                        previous[j] = minWeightIndex;
+                        minWeight[j] = weight;
+                    }
+                }
+            }
+
+            List<WeightedEdge<T>> result = new List<WeightedEdge<T>>();
+            for (int i = 1; i < Nodes.Count; i++)
+            {
+                WeightedEdge<T> edge = this[previous[i], i];
+                result.Add(edge);
+            }
+            return result;
+        }
+
+        private int GetMinimumWeightIndex(int[] weights, bool[] isInMST)
+        {
+            int minValue = int.MaxValue;
+            int minIndex = 0;
+
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                if (!isInMST[i] && weights[i] < minValue)
+                {
+                    minValue = weights[i];
+                    minIndex = i;
+                }
+            }
+
+            return minIndex;
+        }
+
+        private void Fill<Q>(Q[] array, Q value)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = value;
+            }
         }
         #endregion
     }
