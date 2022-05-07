@@ -107,6 +107,20 @@ namespace GraphDataStructureInC_Sharp
                       #endregion
 
                       #region Weighted Generic Graph<T> : Minimum Spanning Tree : Prim's Algorithm
+                      //WeightedGraph<int> weightedGenericGraph = WeightedGraph<int>.BuidGraph();
+                      //await context.Response.WriteAsync("================================================\n");
+                      //await context.Response.WriteAsync("Generic Weighted Bi-Directional Graph\n");
+                      //await context.Response.WriteAsync("Adjacency List Implementation\n");
+                      //await context.Response.WriteAsync("================================================\n");
+                      //await context.Response.WriteAsync(WeightedGraph<int>.PrintGraph(weightedGenericGraph));
+                      //await context.Response.WriteAsync("\n================================================\n");
+                      //await context.Response.WriteAsync("Minimum Spanning Tree Prim's Algorithm\n");
+                      //await context.Response.WriteAsync("================================================\n");
+                      //List<WeightedEdge<int>> mstPrim = weightedGenericGraph.MinimumSpanningTreePrim();
+                      //mstPrim.ForEach(e => context.Response.WriteAsync(e.ToString() + "\n"));
+                      #endregion
+
+                      #region Weighted Generic Graph<T> : Coloring : Voivodeship Map
                       WeightedGraph<int> weightedGenericGraph = WeightedGraph<int>.BuidGraph();
                       await context.Response.WriteAsync("================================================\n");
                       await context.Response.WriteAsync("Generic Weighted Bi-Directional Graph\n");
@@ -114,10 +128,16 @@ namespace GraphDataStructureInC_Sharp
                       await context.Response.WriteAsync("================================================\n");
                       await context.Response.WriteAsync(WeightedGraph<int>.PrintGraph(weightedGenericGraph));
                       await context.Response.WriteAsync("\n================================================\n");
-                      await context.Response.WriteAsync("Minimum Spanning Tree Prim's Algorithm\n");
+                      await context.Response.WriteAsync("Coloring : Voivodeship Map\n");
                       await context.Response.WriteAsync("================================================\n");
-                      List<WeightedEdge<int>> mstPrim = weightedGenericGraph.MinimumSpanningTreePrim();
-                      mstPrim.ForEach(e => context.Response.WriteAsync(e.ToString() + "\n"));
+
+                      int[] colors = weightedGenericGraph.Color();
+                      for (int i = 0; i < colors.Length; i++)
+                      {
+                          await context.Response.WriteAsync($"Node " +
+                              $"{weightedGenericGraph.Nodes[i].Value}: " +
+                              $"{colors[i]} \n");
+                      }
                       #endregion
 
                       await context.Response.WriteAsync("");
