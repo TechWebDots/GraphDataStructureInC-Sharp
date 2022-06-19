@@ -5,4 +5,8 @@
     <RootNamespace>GraphDataStructureInC_Sharp.sln</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OptimizedPriorityQueue" Version="5.1.0" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Priority_Queue;
+using System.Collections.Generic;
 using System.Text;
 
 namespace GraphDataStructureInC_Sharp
@@ -255,8 +256,9 @@ namespace GraphDataStructureInC_Sharp
 
         #region WeightedGraph: Build, Print, Previous node setup 
         internal static WeightedGraph<int> BuidGraph()
-        {            
-            WeightedGraph<int> graph = new WeightedGraph<int>(false,true);
+        {
+            #region MyRegion
+            WeightedGraph<int> graph = new WeightedGraph<int>(true, true);
             WeightedGraphNode<int> n1 = graph.AddNode(1);
             WeightedGraphNode<int> n2 = graph.AddNode(2);
             WeightedGraphNode<int> n3 = graph.AddNode(3);
@@ -277,6 +279,7 @@ namespace GraphDataStructureInC_Sharp
             graph.AddEdge(n5, n7, 5);
             graph.AddEdge(n6, n7, 6);
             graph.AddEdge(n7, n8, 20);
+            #endregion
             return graph;
         }                
         internal static string PrintGraph(WeightedGraph<T> graph)
@@ -492,6 +495,66 @@ namespace GraphDataStructureInC_Sharp
                 colors[i] = colorIndex;
             }
             return colors;
+        }
+        #endregion
+
+        #region Shortest Path - Dijkstra Algorithm
+        public List<WeightedEdge<T>> GetShortestPathDijkstra(WeightedGraphNode<T> source, WeightedGraphNode<T> target)
+        {
+            int[] previous = new int[Nodes.Count];
+            //Set Every Previous node with initial value -1
+            Fill(previous, -1);
+
+            int[] distances = new int[Nodes.Count];
+            //Set Every Previous node with initial value -1
+            Fill(distances, int.MaxValue);
+            //Initially distance will be 0 on starting node
+            distances[source.Index] = 0;
+
+            //Create SimplePriorityQueue for dynamicall update the priority of each node on the basis of distance and process accordingly
+            SimplePriorityQueue<WeightedGraphNode<T>> nodes = new SimplePriorityQueue<WeightedGraphNode<T>>();
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                nodes.Enqueue(Nodes[i], distances[i]);
+            }
+
+            while (nodes.Count != 0)
+            {
+                WeightedGraphNode<T> node = nodes.Dequeue();
+                for (int i = 0; i < node.Neighbors.Count; i++)
+                {
+                    WeightedGraphNode<T> neighbor = node.Neighbors[i];
+                    int weight = i < node.Weights.Count ? node.Weights[i] : 0;
+                    int weightTotal = distances[node.Index] + weight;
+
+                    if (distances[neighbor.Index] > weightTotal)
+                    {
+                        distances[neighbor.Index] = weightTotal;
+                        previous[neighbor.Index] = node.Index;
+                        nodes.UpdatePriority(neighbor, distances[neighbor.Index]);
+                    }
+                }
+            }
+
+            //Getting all the index
+            List<int> indices = new List<int>();
+            int index = target.Index;
+            while (index >= 0)
+            {
+                indices.Add(index);
+                index = previous[index];
+            }
+
+            //Reverse all the index to get the correct order
+            indices.Reverse();
+            List<WeightedEdge<T>> result = new List<WeightedEdge<T>>();
+            for (int i = 0; i < indices.Count - 1; i++)
+            {
+                WeightedEdge<T> edge = this[indices[i], indices[i + 1]];
+                result.Add(edge);
+            }
+            //return list of WeightedEdge
+            return result;
         }
         #endregion
     }
